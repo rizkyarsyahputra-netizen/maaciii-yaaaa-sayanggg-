@@ -141,7 +141,7 @@ button:hover{
         karena sudaaa menjadi bagian ygg sangat berarti dalam hidup kikyy🤍🤍.
     </p>
 
-      <button type="button" onclick="goTo('about.html','music/lagu3.mp3')">
+      <button type="button" onclick="goTo('about.html','lagu3.mp3')">
     tekann inii ajaa sayangg 🤍
 </button>
 </div>
@@ -153,17 +153,17 @@ const music = document.getElementById("bgm");
 
 // 🎵 playlist berdasarkan halaman
 const playlist = {
-    "index.html": "music/lagu1.mp3",
-    "opening.html": "music/lagu2.mp3",
-    "about.html": "music/lagu3.mp3",
-    "gallery.html": "music/lagu4.mp3",
-    "memory.html": "music/lagu5.mp3",
-    "final.html": "music/lagu6.mp3"
+    "index.html": "lagu1.mp3",
+    "opening.html": "lagu2.mp3",
+    "about.html": "lagu3.mp3",
+    "gallery.html": "lagu4.mp3",
+    "memory.html": "lagu5.mp3",
+    "final.html": "lagu6.mp3"
 };
 
 // ambil lagu sesuai page
 let page = location.pathname.split("/").pop();
-let song = playlist[page] || "music/lagu1.mp3";
+let song = playlist[page] || "lagu1.mp3";
 
 music.src = song;
 music.volume = 0;
