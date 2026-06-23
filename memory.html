@@ -171,7 +171,7 @@ button{
 
 </div>
 
-<button type="button" onclick="goTo('final.html','music/lagu2.mp3')">
+<button type="button" onclick="goTo('final.html','lagu2.mp3')">
     sinii yangggg ehee🤍
 </button>
 
@@ -182,17 +182,17 @@ const music = document.getElementById("bgm");
 
 // 🎵 playlist
 const playlist = {
-    "index.html": "music/lagu1.mp3",
-    "opening.html": "music/lagu2.mp3",
-    "about.html": "music/lagu3.mp3",
-    "gallery.html": "music/lagu4.mp3",
-    "memory.html": "music/lagu5.mp3",
-    "final.html": "music/lagu6.mp3"
+    "index.html": "lagu1.mp3",
+    "opening.html": "lagu2.mp3",
+    "about.html": "lagu3.mp3",
+    "gallery.html": "lagu4.mp3",
+    "memory.html": "lagu5.mp3",
+    "final.html": "lagu6.mp3"
 };
 
 // ambil lagu sesuai halaman
 let page = location.pathname.split("/").pop();
-music.src = playlist[page] || "music/lagu1.mp3";
+music.src = playlist[page] || "lagu1.mp3";
 music.volume = 0;
 
 // 🎧 start musik (HP friendly)
