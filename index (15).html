@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Di Bawah Langit Biru, Aku Menemukanmu</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    overflow:hidden;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(to bottom,#87CEEB,#BFE7FF,#ffffff);
+    position:relative;
+}
+
+.cloud{
+    position:absolute;
+    background:white;
+    border-radius:50px;
+    opacity:0.8;
+    filter:blur(2px);
+    animation:float 30s linear infinite;
+}
+
+.cloud::before,.cloud::after{
+    content:'';
+    position:absolute;
+    background:white;
+    border-radius:50%;
+}
+
+.cloud1{
+    width:160px;
+    height:60px;
+    top:15%;
+    left:-200px;
+}
+
+.cloud1::before{
+    width:80px;
+    height:80px;
+    top:-35px;
+    left:20px;
+}
+
+.cloud1::after{
+    width:70px;
+    height:70px;
+    top:-25px;
+    left:75px;
+}
+
+.cloud2{
+    width:220px;
+    height:70px;
+    top:35%;
+    left:-250px;
+    animation-duration:40s;
+}
+
+.cloud2::before{
+    width:90px;
+    height:90px;
+    top:-35px;
+    left:30px;
+}
+
+.cloud2::after{
+    width:85px;
+    height:85px;
+    top:-30px;
+    left:100px;
+}
+
+@keyframes float{
+    from{
+        transform:translateX(0);
+    }
+    to{
+        transform:translateX(calc(100vw + 500px));
+    }
+}
+
+.container{
+    text-align:center;
+    width:90%;
+    max-width:700px;
+    z-index:2;
+}
+
+h1{
+    color:white;
+    font-size:42px;
+    text-shadow:0 4px 15px rgba(0,0,0,0.15);
+    margin-bottom:20px;
+}
+
+p{
+    color:white;
+    font-size:18px;
+    line-height:1.7;
+    margin-bottom:35px;
+    text-shadow:0 3px 10px rgba(0,0,0,0.15);
+}
+
+button{
+    padding:16px 42px;
+    border:none;
+    border-radius:50px;
+    background:white;
+    color:#4A90E2;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 10px 30px rgba(0,0,0,0.15);
+    transition:0.3s;
+}
+
+button:hover{
+    transform:translateY(-5px);
+}
+
+.sparkle{
+    position:absolute;
+    color:white;
+    font-size:18px;
+    animation:blink 2s infinite;
+}
+
+@keyframes blink{
+    50%{
+        opacity:0.3;
+    }
+}
+
+#fade{
+    position:fixed;
+    inset:0;
+    background: rgba(135, 206, 235, 0.95);
+    pointer-events:none;
+    transition:1s ease;
+}
+</style>
+</head>
+<body>
+
+<div class="cloud cloud1"></div>
+<div class="cloud cloud2"></div>
+<div id="fade"></div>
+
+
+<div class="sparkle" style="top:20%; left:20%;">✦</div>
+<div class="sparkle" style="top:70%; left:80%;">✦</div>
+<div class="sparkle" style="top:25%; left:75%;">✦</div>
+<div class="sparkle" style="top:60%; left:15%;">✦</div>
+
+<div class="container">
+    <h1>Di Bawah Langit Biru,<br>Aku Menemukanmu</h1>
+    <p>
+        ada sesuatu yang ingin kikyy tunjukin<br>
+        untuk seseorang yang sangat berarti untukk kikyy
+    </p>
+
+   <button onclick="goTo('opening.html','music/lagu2.mp3')">
+    tekann inii sayanggg🤍
+</button>
+</div>
+
+<audio id="bgm" loop></audio>
+
+<script>
+const music = document.getElementById("bgm");
+
+// 🎵 playlist berdasarkan halaman
+const playlist = {
+    "index.html": "music/lagu1.mp3",
+    "opening.html": "music/lagu2.mp3",
+    "about.html": "music/lagu3.mp3",
+    "gallery.html": "music/lagu4.mp3",
+    "memory.html": "music/lagu5.mp3",
+    "final.html": "music/lagu6.mp3"
+};
+
+// ambil lagu sesuai page
+let page = location.pathname.split("/").pop();
+let song = playlist[page] || "music/lagu1.mp3";
+
+music.src = song;
+music.volume = 0;
+
+// 🎬 mulai musik (butuh klik user)
+function startMusic(){
+    music.play().then(() => {
+
+        let v = 0;
+        let fadeIn = setInterval(() => {
+            if(v < 1){
+                v += 0.05;
+                music.volume = v;
+            } else {
+                clearInterval(fadeIn);
+            }
+        }, 80);
+
+    }).catch(()=>{});
+}
+
+document.addEventListener("click", startMusic, { once: true });
+
+
+// 🎬 fade + pindah page
+function goTo(page){
+
+    let v = music.volume;
+
+    let fadeOut = setInterval(() => {
+        if(v > 0){
+            v -= 0.05;
+            music.volume = v;
+        } else {
+            clearInterval(fadeOut);
+            window.location.href = page;
+        }
+    }, 80);
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ending</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    height:100vh;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(180deg,#0b1d3a,#1b3a6b,#4A90E2);
+    color:white;
+    text-align:center;
+}
+
+/* 🌑 fade */
+#fade{
+    position:fixed;
+    inset:0;
+    background:rgba(11,29,58,0.95);
+    opacity:1;
+    pointer-events:none;
+    transition:1.5s ease;
+}
+
+/* ✨ text */
+.container{
+    z-index:2;
+    animation:fadeIn 2s ease;
+    max-width:800px;
+    padding:20px;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+h1{
+    font-size:46px;
+    margin-bottom:20px;
+    letter-spacing:1px;
+}
+
+p{
+    font-size:18px;
+    opacity:0.9;
+}
+
+/* 💖 hearts */
+.heart{
+    position:absolute;
+    color:pink;
+    animation:float 6s linear infinite;
+    opacity:0.5;
+}
+
+@keyframes float{
+    0%{transform:translateY(100vh); opacity:0;}
+    50%{opacity:1;}
+    100%{transform:translateY(-10vh); opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<div id="fade"></div>
+
+<div class="container">
+    <h1>maacii yaaa cantii 🤍</h1>
+    <p>kikyy bersyukur dann merasa sangatt beruntung karenaa kikyy bisaa memiliki wanitaa cantii inii🤍🤍.</p>
+</div>
+
+<audio id="bgm" loop></audio>
+
+<script>
+const music = document.getElementById("bgm");
+
+// 🎵 playlist
+const playlist = {
+    "index.html": "music/lagu1.mp3",
+    "opening.html": "music/lagu2.mp3",
+    "about.html": "music/lagu3.mp3",
+    "gallery.html": "music/lagu4.mp3",
+    "memory.html": "music/lagu5.mp3",
+    "final.html": "music/lagu6.mp3"
+};
+
+// ambil lagu sesuai halaman
+let page = location.pathname.split("/").pop();
+music.src = playlist[page] || "music/lagu1.mp3";
+music.volume = 0;
+
+// 🎧 start musik (HP friendly)
+function startMusic(){
+    music.play().then(() => {
+        let v = 0;
+        let fadeIn = setInterval(() => {
+            if(v < 1){
+                v += 0.05;
+                music.volume = v;
+            } else {
+                clearInterval(fadeIn);
+            }
+        }, 80);
+    }).catch(()=>{});
+}
+
+document.addEventListener("click", startMusic, { once: true });
+
+// 🎬 pindah page
+function goTo(page){
+    let v = music.volume;
+
+    let fadeOut = setInterval(() => {
+        if(v > 0){
+            v -= 0.05;
+            music.volume = v;
+        } else {
+            clearInterval(fadeOut);
+            window.location.href = page;
+        }
+    }, 80);
+}
+</script>
+
+</body>
+</html>

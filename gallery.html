@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(180deg,#87CEEB,#d9f2ff,#ffffff);
+    padding:40px 20px;
+}
+
+/* WRAPPER BIAR TIDAK “TENGGELAM” */
+.page{
+    max-width:1100px;
+    margin:auto;
+    position:relative;
+    z-index:2;
+}
+
+h1{
+    text-align:center;
+    color:#2d6fc7;
+    margin-bottom:10px;
+    font-size:42px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#355070;
+    margin-bottom:40px;
+}
+
+/* GRID */
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+/* CARD */
+.photo-card{
+    background:white;
+    border-radius:24px;
+    overflow:hidden;
+    box-shadow:0 15px 35px rgba(0,0,0,0.12);
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.photo-card:hover{
+    transform:translateY(-8px);
+}
+
+.photo-card img{
+    width:100%;
+    height:320px;
+    object-fit:cover;
+}
+
+.caption{
+    padding:18px;
+    color:#355070;
+    line-height:1.7;
+}
+
+/* BUTTON */
+button{
+    display:block;
+    margin:45px auto 0;
+    padding:16px 42px;
+    border:none;
+    border-radius:50px;
+    background:#4A90E2;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+
+/* POPUP */
+.popup{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.85);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
+
+.popup img{
+    max-width:90%;
+    max-height:85%;
+    border-radius:20px;
+}
+
+/* FADE SOFT (tidak ganggu teks) */
+#fade{
+    position:fixed;
+    inset:0;
+    background:rgba(255,255,255,0.92);
+    pointer-events:none;
+    transition:1s ease;
+    z-index:1000;
+}
+</style>
+</head>
+
+<body>
+
+<div id="fade"></div>
+
+<div class="page">
+
+    <h1>Your Beautiful Moments 🤍</h1>
+    <p class="subtitle">setiap foto ini selalu punya cerita</p>
+
+    <div class="gallery">
+
+        <div class="photo-card" onclick="showImage('images/foto1.jpg')">
+            <img src="images/foto1.jpg">
+            <div class="caption">
+                Senyum sayangg selaluu punya cara sederhana
+                untukk membuat hari kikyy terasa lebiii indah🤍.
+            </div>
+        </div>
+
+        <div class="photo-card" onclick="showImage('images/foto2.jpg')">
+            <img src="images/foto2.jpg">
+            <div class="caption">
+                Cantik sayangg bukan cumaa terlihat,
+                tapii jugaa terasa dari cara sayangg berindakk🤏🏻
+            </div>
+        </div>
+
+        <div class="photo-card" onclick="showImage('images/foto3.jpg')">
+            <img src="images/foto3.jpg">
+            <div class="caption">
+                Adaa manisss ygg sulit dijelaskan
+                setiap kali kikyy liatt sayangg 🤏🏻
+            </div>
+        </div>
+
+        <div class="photo-card" onclick="showImage('images/foto4.jpg')">
+            <img src="images/foto4.jpg">
+            <div class="caption">
+                Jika rumaaa punyaa wujud manusia,
+                mungkin itu adalaa sayangg🤍
+            </div>
+        </div>
+
+    </div>
+
+    <button onclick="goTo('memory.html')">
+        sinii yangg ehee🤍
+    </button>
+
+</div>
+
+<!-- POPUP -->
+<div class="popup" id="popup" onclick="closePopup()">
+    <img id="popupImage">
+</div>
+
+<audio id="bgm" loop></audio>
+
+<script>
+function showImage(src){
+    document.getElementById("popup").style.display="flex";
+    document.getElementById("popupImage").src=src;
+}
+
+function closePopup(){
+    document.getElementById("popup").style.display="none";
+}
+
+/* FADE IN */
+window.addEventListener("load", () => {
+    setTimeout(() => {
+        document.getElementById("fade").style.opacity = "0";
+    }, 200);
+});
+
+/* NAVIGASI */
+function goTo(page){
+    window.location.href = page;
+}
+
+const music = document.getElementById("bgm");
+
+// set lagu per page
+const playlist = {
+    "index.html": "music/lagu1.mp3",
+    "opening.html": "music/lagu2.mp3",
+    "about.html": "music/lagu3.mp3",
+    "gallery.html": "music/lagu4.mp3",
+    "memory.html": "music/lagu5.mp3",
+    "final.html": "music/lagu6.mp3"
+};
+
+let page = location.pathname.split("/").pop();
+music.src = playlist[page] || "music/lagu1.mp3";
+music.volume = 0;
+
+// WAJIB klik biar HP izinkan audio
+document.addEventListener("click", () => {
+    if (music.paused) {
+        music.play().then(() => {
+
+            let v = 0;
+            let fadeIn = setInterval(() => {
+                if(v < 0.7){   // jangan full 1 biar soft
+                    v += 0.05;
+                    music.volume = v;
+                } else {
+                    clearInterval(fadeIn);
+                }
+            }, 80);
+
+        });
+    }
+}, { once: true });
+</script>
+
+</body>
+</html>
