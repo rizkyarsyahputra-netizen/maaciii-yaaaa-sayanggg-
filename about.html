@@ -159,11 +159,11 @@ const music = document.getElementById("bgm");
 
 // playlist stabil
 const playlist = {
-    "about.html": "music/lagu3.mp3"
+    "about.html": "lagu3.mp3"
 };
 
 let page = location.pathname.split("/").pop();
-music.src = playlist[page] || "music/lagu1.mp3";
+music.src = playlist[page] || "lagu1.mp3";
 music.volume = 0;
 
 // FIX: autoplay di HP (harus klik)
